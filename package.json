@@ -4,8 +4,20 @@
   "description": "Private shared types across our IPFS-ENS deployer system.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "dev": "tsc --watch"
   },
   "author": "",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@eximchain/api-types": "^1.0.0"
+  },
+  "devDependencies": {
+    "@octokit/auth-oauth-app": "^2.2.1",
+    "@octokit/rest": "^16.35.0",
+    "@types/node": "^12.12.8",
+    "ts-xor": "^1.0.8",
+    "typescript": "^3.7.2"
+  }
 }
