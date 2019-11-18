@@ -85,9 +85,9 @@ export namespace Transitions {
     timestamp: string
   }
 
-  type Generic<Details> = Base & Details;
+  type GenericTransition<Details> = Base & Details;
 
-  export type Pipeline = Generic<{
+  export type Pipeline = GenericTransition<{
     size: number
   }>
 
@@ -99,7 +99,7 @@ export namespace Transitions {
     )
   }
 
-  export type Ipfs = Generic<{ 
+  export type Ipfs = GenericTransition<{ 
     hash: string 
   }>
 
@@ -111,7 +111,7 @@ export namespace Transitions {
     )
   }
 
-  export type Ens = Generic<{
+  export type Ens = GenericTransition<{
     txHash: string,
     nonce: number
   }>
