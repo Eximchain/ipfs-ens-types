@@ -8,6 +8,10 @@
     "build": "tsc",
     "dev": "tsc --watch"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eximchain/ipfs-ens-types.git"
+  },
   "author": "",
   "license": "UNLICENSED",
   "dependencies": {
