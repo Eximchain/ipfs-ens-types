@@ -59,25 +59,12 @@ export function isDeployItem(val:any): val is DeployItem {
     ])
   );
   if (!isBaseItem) return false;
-  if (val.source) {
-    if (!Transitions.isPipeline(val.source)) return false;
-  }
-  if (val.build) {
-    if (!Transitions.isPipeline(val.build)) return false;
-  }
-  if (val.ipfs) {
-    if (!Transitions.isIpfs(val.ipfs)) return false;
-  }
-
-  if (val.ensRegister) {
-    if (!Transitions.isEns(val.ensRegister)) return false;
-  }
-  if (val.ensSetResolver) {
-    if (!Transitions.isEns(val.ensSetResolver)) return false;
-  }
-  if (val.ensSetContent) {
-    if (!Transitions.isEns(val.ensSetContent)) return false;
-  }
+  if (val.source && !Transitions.isPipeline(val.source)) return false;
+  if (val.build && !Transitions.isPipeline(val.build)) return false;
+  if (val.ipfs && !Transitions.isIpfs(val.ipfs)) return false;
+  if (val.ensRegister && !Transitions.isEns(val.ensRegister)) return false;
+  if (val.ensSetResolver && !Transitions.isEns(val.ensSetResolver)) return false;
+  if (val.ensSetContent && !Transitions.isEns(val.ensSetContent)) return false; 
   return true;
 }
 
@@ -112,7 +99,9 @@ export namespace Transitions {
     )
   }
 
-  export type Ipfs = Generic<{ hash: string }>
+  export type Ipfs = Generic<{ 
+    hash: string 
+  }>
 
   export function isIpfs(val:any):val is Ipfs {
     return (
