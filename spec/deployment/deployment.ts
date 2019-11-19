@@ -100,7 +100,7 @@ export namespace Transitions {
   }
 
   export type Ipfs = GenericTransition<{ 
-    hash: string 
+    hash: string
   }>
 
   export function isIpfs(val:any):val is Ipfs {
@@ -113,16 +113,26 @@ export namespace Transitions {
 
   export type Ens = GenericTransition<{
     txHash: string,
-    nonce: number
+    nonce: number,
+    blockNumber?: number,
+    confirmationTimestamp?: string
   }>
 
   export function isEns(val:any): val is Ens {
-    return (
+    let base = (
       isObject(val) &&
       isString(val.timestamp) &&
       isString(val.txHash) &&
       isNumber(val.nonce)
     )
+    if (!base) return false;
+    if (
+      // If either of these keys are set, they must both be
+      // set correctly in order to pass.
+      (val.blockNumber || val.confirmationTimestamp) &&
+      (!isNumber(val.blockNumber) || !isString(val.confirmationTimestamp))
+    ) return false;
+    return true;
   }
 
 }
