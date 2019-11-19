@@ -1,0 +1,4 @@
+{
+  "main" : "../../build/deployment/index.js",
+  "types": "./index.ts"
+}
