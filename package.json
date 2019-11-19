@@ -20,7 +20,6 @@
     "@eximchain/api-types": "^1.0.3"
   },
   "devDependencies": {
-    "@octokit/auth-oauth-app": "^2.2.1",
     "@octokit/rest": "^16.35.0",
     "@types/node": "^12.12.8",
     "ts-xor": "^1.0.8",

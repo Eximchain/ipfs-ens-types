@@ -1,4 +1,3 @@
-import OctokitOauthTypes from '@octokit/auth-oauth-app/dist-types/types';
 import Octokit from '@octokit/rest';
 import { keysAreStrings, isObject, isString } from '@eximchain/api-types/spec/validators'
 import { isNumber } from 'util';
@@ -17,11 +16,11 @@ export interface DeployArgs {
   sourceProvider: SourceProviders
 }
 
-export function isDeployArgs(val:any): val is DeployArgs {
+export function isDeployArgs(val: any): val is DeployArgs {
   return keysAreStrings(val, ['packageDir', 'buildDir', 'owner', 'repo', 'branch', 'ensName', 'sourceProvider'])
 }
 
-export function newDeployArgs():DeployArgs{
+export function newDeployArgs(): DeployArgs {
   return {
     packageDir: '',
     buildDir: '',
@@ -53,7 +52,7 @@ export interface DeployItem extends DeployArgs {
   }
 }
 
-export function isDeployItem(val:any): val is DeployItem {
+export function isDeployItem(val: any): val is DeployItem {
   if (!keysAreStrings(val, [
     ...Object.keys(newDeployArgs()),
     'createdAt', 'updatedAt', 'username', 'codepipelineName'
@@ -65,11 +64,11 @@ export function isDeployItem(val:any): val is DeployItem {
   if (trans.ipfs && !Transitions.isIpfs(trans.ipfs)) return false;
   if (trans.ensRegister && !Transitions.isEns(trans.ensRegister)) return false;
   if (trans.ensSetResolver && !Transitions.isEns(trans.ensSetResolver)) return false;
-  if (trans.ensSetContent && !Transitions.isEns(trans.ensSetContent)) return false; 
+  if (trans.ensSetContent && !Transitions.isEns(trans.ensSetContent)) return false;
   return true;
 }
 
-export function newDeployItem():DeployItem {
+export function newDeployItem(): DeployItem {
   const now = Date.now().toString();
   return {
     ...newDeployArgs(),
@@ -93,7 +92,7 @@ export namespace Transitions {
     size: number
   }>
 
-  export function isPipeline(val:any):val is Pipeline {
+  export function isPipeline(val: any): val is Pipeline {
     return (
       isObject(val) &&
       isString(val.timestamp) &&
@@ -101,11 +100,11 @@ export namespace Transitions {
     )
   }
 
-  export type Ipfs = GenericTransition<{ 
+  export type Ipfs = GenericTransition<{
     hash: string
   }>
 
-  export function isIpfs(val:any):val is Ipfs {
+  export function isIpfs(val: any): val is Ipfs {
     return (
       isObject(val) &&
       isString(val.timestamp) &&
@@ -120,7 +119,7 @@ export namespace Transitions {
     confirmationTimestamp?: string
   }>
 
-  export function isEns(val:any): val is Ens {
+  export function isEns(val: any): val is Ens {
     let base = (
       isObject(val) &&
       isString(val.timestamp) &&
@@ -140,7 +139,16 @@ export namespace Transitions {
 }
 
 export namespace GitTypes {
-  export type Auth = OctokitOauthTypes.TokenAuthentication;
+  type TokenWithScopes = {
+    token: string;
+    scopes: string[];
+  };
+  type TokenAuthentication = TokenWithScopes & {
+    type: "token";
+    tokenType: "oauth";
+  };
+
+  export type Auth = TokenAuthentication;
   export type User = Octokit.UsersGetAuthenticatedResponse;
   export type Repo = Octokit.ReposListForOrgResponseItem;
   export type Branch = Octokit.ReposListBranchesResponseItem;
@@ -150,18 +158,18 @@ export enum SourceProviders {
   GitHub = "GitHub"
 }
 
-export function isSourceProvider(val:string): val is SourceProviders {
+export function isSourceProvider(val: string): val is SourceProviders {
   const providers = Object.values(SourceProviders) as string[];
   return providers.includes(val);
 }
 
 export enum DeployStates {
-  FETCHING_SOURCE      = 'FETCHING_SOURCE',
-  BUILDING_SOURCE      = 'BUILDING_SOURCE',
-  DEPLOYING_IPFS       = 'DEPLOYING_IPFS',
-  REGISTERING_ENS      = 'REGISTERING_ENS',
+  FETCHING_SOURCE = 'FETCHING_SOURCE',
+  BUILDING_SOURCE = 'BUILDING_SOURCE',
+  DEPLOYING_IPFS = 'DEPLOYING_IPFS',
+  REGISTERING_ENS = 'REGISTERING_ENS',
   SETTING_RESOLVER_ENS = 'SETTING_RESOLVER_ENS',
-  SETTING_CONTENT_ENS  = 'SETTING_CONTENT_ENS',
-  PROPAGATING          = 'PROPAGATING',
-  AVAILABLE            = 'AVAILABLE'
+  SETTING_CONTENT_ENS = 'SETTING_CONTENT_ENS',
+  PROPAGATING = 'PROPAGATING',
+  AVAILABLE = 'AVAILABLE'
 }
