@@ -1,6 +1,6 @@
 {
   "name": "@eximchain/ipfs-ens-types",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Private shared types across our IPFS-ENS deployer system.",
   "main": "index.js",
   "scripts": {
