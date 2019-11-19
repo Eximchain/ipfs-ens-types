@@ -43,12 +43,14 @@ export interface DeployItem extends DeployArgs {
   username: string
   state: DeployStates
   codepipelineName: string
-  source?: Transitions.Pipeline
-  build?: Transitions.Pipeline
-  ipfs?: Transitions.Ipfs
-  ensRegister?: Transitions.Ens
-  ensSetResolver?: Transitions.Ens
-  ensSetContent?: Transitions.Ens
+  transitions: {
+    source?: Transitions.Pipeline
+    build?: Transitions.Pipeline
+    ipfs?: Transitions.Ipfs
+    ensRegister?: Transitions.Ens
+    ensSetResolver?: Transitions.Ens
+    ensSetContent?: Transitions.Ens
+  }
 }
 
 export function isDeployItem(val:any): val is DeployItem {
