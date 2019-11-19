@@ -2,20 +2,22 @@
   "name": "@eximchain/ipfs-ens-types",
   "version": "1.0.2",
   "description": "Private shared types across our IPFS-ENS deployer system.",
-  "main": "index.js",
+  "main": "build/index.js",
+  "types": "spec/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Eximchain/ipfs-ens-types.git"
   },
-  "author": "",
+  "author": "John O'Sullivan <john@eximchain.com>",
   "license": "UNLICENSED",
   "dependencies": {
-    "@eximchain/api-types": "^1.0.0"
+    "@eximchain/api-types": "^1.0.3"
   },
   "devDependencies": {
     "@octokit/auth-oauth-app": "^2.2.1",
