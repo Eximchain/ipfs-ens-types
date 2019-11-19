@@ -54,19 +54,18 @@ export interface DeployItem extends DeployArgs {
 }
 
 export function isDeployItem(val:any): val is DeployItem {
-  const isBaseItem = (
-    isDeployArgs(val) &&
-    keysAreStrings(val, [
-      'createdAt', 'updatedAt', 'username', 'codepipelineName'
-    ])
-  );
-  if (!isBaseItem) return false;
-  if (val.source && !Transitions.isPipeline(val.source)) return false;
-  if (val.build && !Transitions.isPipeline(val.build)) return false;
-  if (val.ipfs && !Transitions.isIpfs(val.ipfs)) return false;
-  if (val.ensRegister && !Transitions.isEns(val.ensRegister)) return false;
-  if (val.ensSetResolver && !Transitions.isEns(val.ensSetResolver)) return false;
-  if (val.ensSetContent && !Transitions.isEns(val.ensSetContent)) return false; 
+  if (!keysAreStrings(val, [
+    ...Object.keys(newDeployArgs()),
+    'createdAt', 'updatedAt', 'username', 'codepipelineName'
+  ])) return false;
+  if (!isObject(val.transitions)) return false;
+  const trans = val.transitions;
+  if (trans.source && !Transitions.isPipeline(trans.source)) return false;
+  if (trans.build && !Transitions.isPipeline(trans.build)) return false;
+  if (trans.ipfs && !Transitions.isIpfs(trans.ipfs)) return false;
+  if (trans.ensRegister && !Transitions.isEns(trans.ensRegister)) return false;
+  if (trans.ensSetResolver && !Transitions.isEns(trans.ensSetResolver)) return false;
+  if (trans.ensSetContent && !Transitions.isEns(trans.ensSetContent)) return false; 
   return true;
 }
 
@@ -79,6 +78,7 @@ export function newDeployItem():DeployItem {
     username: '',
     state: DeployStates.FETCHING_SOURCE,
     codepipelineName: '',
+    transitions: {}
   }
 }
 
