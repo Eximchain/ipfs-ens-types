@@ -82,6 +82,24 @@ export function newDeployItem(): DeployItem {
 }
 
 export namespace Transitions {
+
+  export namespace Names {
+    export enum All {
+      SOURCE = 'source',
+      BUILD = 'build',
+      IPFS = 'ipfs',
+      ENS_REGISTER = 'ensRegister',
+      ENS_SET_RESOLVER = 'ensSetResolver',
+      ENS_SET_CONTENT = 'ensSetContent'
+    }
+
+    export type Pipeline = All.SOURCE | All.BUILD;
+
+    export type Ipfs = All.IPFS;
+
+    export type Ens = All.ENS_REGISTER | All.ENS_SET_RESOLVER | All.ENS_SET_CONTENT;
+  }
+
   interface Base {
     timestamp: string
   }
