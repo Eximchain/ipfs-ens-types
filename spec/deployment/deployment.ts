@@ -191,3 +191,14 @@ export enum DeployStates {
   PROPAGATING = 'PROPAGATING',
   AVAILABLE = 'AVAILABLE'
 }
+
+export const nextDeployState = {
+  [DeployStates.FETCHING_SOURCE]: DeployStates.BUILDING_SOURCE,
+  [DeployStates.BUILDING_SOURCE]: DeployStates.DEPLOYING_IPFS,
+  [DeployStates.DEPLOYING_IPFS]: DeployStates.REGISTERING_ENS,
+  [DeployStates.REGISTERING_ENS]: DeployStates.SETTING_RESOLVER_ENS,
+  [DeployStates.SETTING_RESOLVER_ENS]: DeployStates.SETTING_CONTENT_ENS,
+  [DeployStates.SETTING_CONTENT_ENS]: DeployStates.PROPAGATING,
+  [DeployStates.PROPAGATING]: DeployStates.AVAILABLE,
+  [DeployStates.AVAILABLE]: DeployStates.AVAILABLE
+}
