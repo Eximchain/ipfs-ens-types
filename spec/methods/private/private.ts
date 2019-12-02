@@ -1,9 +1,8 @@
-import { keysAreStrings } from '@eximchain/api-types/spec/validators';
 import { HttpMethods, MessageResult, MessageResponse, ApiResponse } from '@eximchain/api-types/spec/responses';
 import { apiBasePath, RootResources } from '../index'
 import Deployment from '../../deployment';
 
-export const privateBasePath = `${apiBasePath}/${RootResources.deployment}`;
+export const privateBasePath = `${apiBasePath}/${RootResources.deployments}`;
 
 function DeployPath(name:string){
   return `${privateBasePath}/${name}`;

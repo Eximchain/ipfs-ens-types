@@ -1,7 +1,7 @@
 export const apiBasePath = '/v1';
 
 export enum RootResources {
-  deployment = 'deployment',
+  deployments = 'deployments',
   login = 'login'
 }
 
