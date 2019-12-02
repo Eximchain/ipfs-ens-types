@@ -50,6 +50,10 @@ export interface DeployItem extends DeployArgs {
     ensSetResolver?: Transitions.Ens
     ensSetContent?: Transitions.Ens
   }
+  transitionError?: {
+    transition: Transitions.Names.All
+    message: string
+  }
 }
 
 export function isDeployItem(val: any): val is DeployItem {
@@ -65,6 +69,11 @@ export function isDeployItem(val: any): val is DeployItem {
   if (trans.ensRegister && !Transitions.isEns(trans.ensRegister)) return false;
   if (trans.ensSetResolver && !Transitions.isEns(trans.ensSetResolver)) return false;
   if (trans.ensSetContent && !Transitions.isEns(trans.ensSetContent)) return false;
+  const err = val.transitionError;
+  if (err) {
+    if (!isObject(err)) return false;
+    if (!keysAreStrings(err, ['transition', 'message'])) return false;
+  }
   return true;
 }
 
