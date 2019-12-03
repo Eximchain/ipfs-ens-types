@@ -72,7 +72,8 @@ export function isDeployItem(val: any): val is DeployItem {
   const err = val.transitionError;
   if (err) {
     if (!isObject(err)) return false;
-    if (!keysAreStrings(err, ['transition', 'message'])) return false;
+    if (!isString(err.message)) return false;
+    if (!Transitions.isName(err.transition)) return false;
   }
   return true;
 }
@@ -107,6 +108,10 @@ export namespace Transitions {
     export type Ipfs = All.IPFS;
 
     export type Ens = All.ENS_REGISTER | All.ENS_SET_RESOLVER | All.ENS_SET_CONTENT;
+  }
+
+  export function isName(val:string):val is Names.All {
+    return Object.values(Names.All).includes(val as Names.All);
   }
 
   interface Base {
