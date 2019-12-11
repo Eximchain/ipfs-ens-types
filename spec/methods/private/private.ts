@@ -26,17 +26,25 @@ export namespace ReadDeployment {
 
   export type Args = void;
 
-  export interface FoundResult {
+  export interface FoundOwnResult {
     exists: true
+    owned: true
     item: Deployment.DeployItem
+  }
+  
+  export interface FoundOtherResult {
+    exists: true
+    owned: false
+    item: null
   }
 
   export interface NotFoundResult {
     exists: false
+    owned: false
     item: null
   }
 
-  export type Result = FoundResult | NotFoundResult;
+  export type Result = FoundOwnResult | FoundOtherResult | NotFoundResult;
 
   export type Response = ApiResponse<Result>
 }
