@@ -74,6 +74,7 @@ export function isDeployItem(val: any): val is DeployItem {
   if (err) {
     if (!isObject(err)) return false;
     if (!isString(err.message)) return false;
+    if (!isString(err.timestamp)) return false;
     if (!Transitions.isName(err.transition)) return false;
   }
   return true;
