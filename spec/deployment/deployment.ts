@@ -53,6 +53,7 @@ export interface DeployItem extends DeployArgs {
   transitionError?: {
     transition: Transitions.Names.All
     message: string
+    timestamp: string
   }
 }
 
