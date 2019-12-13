@@ -170,6 +170,12 @@ export namespace Transitions {
     return true;
   }
 
+  export type Any = Pipeline | Ipfs | Ens;
+
+  export function isAny(val:any): val is Transitions.Any {
+    return isPipeline(val) || isIpfs(val) || isEns(val);
+  }
+
 }
 
 export namespace GitTypes {
