@@ -14,9 +14,17 @@ export interface DeployArgs {
   branch: string
   ensName: string
   sourceProvider: SourceProviders
+  envVars?: {
+    [key: string]: string
+  }
 }
 
 export function isDeployArgs(val: any): val is DeployArgs {
+  if (val.envVars) {
+    if (!isObject(val.envVars)) return false;
+    let keys = Object.keys(val.envVars);
+    if (!keysAreStrings(val.envVars, keys)) return false;
+  }
   return keysAreStrings(val, ['packageDir', 'buildDir', 'owner', 'repo', 'branch', 'ensName', 'sourceProvider'])
 }
 
