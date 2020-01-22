@@ -17,7 +17,7 @@
   "author": "John O'Sullivan <john@eximchain.com>",
   "license": "UNLICENSED",
   "dependencies": {
-    "@eximchain/api-types": "^1.0.3"
+    "@eximchain/api-types": "^1.1.0"
   },
   "devDependencies": {
     "@octokit/rest": "^16.35.0",
