@@ -1,4 +1,5 @@
 import Octokit from '@octokit/rest';
+import { StringMapping, isStringMapping, ObjectKey, ObjectVal, KeyValPair } from '@eximchain/api-types/spec/common'
 import { keysAreStrings, isObject, isString } from '@eximchain/api-types/spec/validators'
 import { isNumber } from 'util';
 
@@ -14,17 +15,11 @@ export interface DeployArgs {
   branch: string
   ensName: string
   sourceProvider: SourceProviders
-  envVars?: {
-    [key: string]: string
-  }
+  envVars?: StringMapping
 }
 
 export function isDeployArgs(val: any): val is DeployArgs {
-  if (val.envVars) {
-    if (!isObject(val.envVars)) return false;
-    let keys = Object.keys(val.envVars);
-    if (!keysAreStrings(val.envVars, keys)) return false;
-  }
+  if (val.envVars && !isStringMapping(val.envVars)) return false;
   return keysAreStrings(val, ['packageDir', 'buildDir', 'owner', 'repo', 'branch', 'ensName', 'sourceProvider'])
 }
 
@@ -39,6 +34,10 @@ export function newDeployArgs(): DeployArgs {
     sourceProvider: SourceProviders.GitHub
   }
 }
+
+export type DeployArgsKey = ObjectKey<DeployArgs>;
+export type DeployArgsVal = ObjectVal<DeployArgs>;
+export type DeployArgsPair = KeyValPair<DeployArgs>;
 
 /**
  * Complete data representing a deployment, persisted
